@@ -485,6 +485,7 @@ impl ImeClient {
             if let Some(logger) = LOGGER.lock().unwrap().as_mut() {
                 logger("try_open_ic timed out, retrying");
             }
+            unsafe { xcb_xim_close(self.im) };
         }
         self.ic_initializing = Some(now);
         let data: *mut ImeClient = self as _;
